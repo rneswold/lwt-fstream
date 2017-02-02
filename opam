@@ -1,0 +1,24 @@
+opam-version: "1.2"
+name: "lwt-fstream"
+version: "dev"
+author: "Rich Neswold"
+maintainer: "rich.neswold@gmail.com"
+build: [
+  [make "build"]
+]
+install: [
+  [make "install"]
+]
+remove: [
+  ["ocamlfind" "remove" "lwt-fstream"]
+]
+build-doc: [ make "doc" ]
+depends: [
+  "ocamlfind" {build}
+  "ocamlbuild" {build}
+  "lwt"
+]
+tags: [ "lwt" "stream" ]
+homepage: "https://github.com/rneswold/lwt-fstream/"
+dev-repo: "https://github.com/rneswold/lwt-fstream.git"
+bug-reports: "https://github.com/rneswold/lwt-fstream/issues/"

@@ -1,0 +1,10 @@
+name = "lwt_fstream"
+version = "0.1"
+requires = "lwt"
+description = "An alternate stream type for LWT which uses a functional interface."
+
+archive(byte) = "lwt_fstream.cma"
+archive(byte, plugin) = "lwt_fstream.cma"
+archive(native) = "lwt_fstream.cmxa"
+archive(native, plugin) = "lwt_fstream.cmxs"
+exists_if = "lwt_fstream.cma"
