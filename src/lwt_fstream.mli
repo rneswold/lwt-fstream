@@ -15,7 +15,7 @@ val create_push : unit -> 'a t * ('a -> unit)
 
 val create_pull : ('a -> ('b * 'a) Lwt.t) -> 'a -> 'b t
 
-val of_list : int list -> int t
+val of_list : 'a list -> 'a t
 
 (** [clone s] returns a stream which will return the same content as
     the original. Each thread should read from its own copy of the
