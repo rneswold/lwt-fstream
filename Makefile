@@ -1,5 +1,5 @@
 OPTS= -classic-display -use-ocamlfind
-TARGETS= lwt_fstream.cma lwt_fstream.cmxa lwt_fstream.cmxs lwt_fstream.a
+TARGETS= lwt_fstream.cma lwt_fstream.cmx lwt_fstream.cmxa lwt_fstream.cmxs lwt_fstream.a
 
 build:
 	ocamlbuild $(OPTS) $(addprefix src/, $(TARGETS))

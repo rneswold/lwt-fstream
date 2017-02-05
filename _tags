@@ -1,0 +1,3 @@
+<src>: include
+<src/*>: package(lwt,lwt.ppx)
+true: safe_string, short_paths, warn(+a-4)

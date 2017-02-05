@@ -1,6 +1,6 @@
 name = "lwt_fstream"
 version = "0.1"
-requires = "lwt"
+requires = "lwt,lwt.ppx"
 description = "An alternate stream type for LWT which uses a functional interface."
 
 archive(byte) = "lwt_fstream.cma"
