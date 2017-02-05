@@ -34,8 +34,7 @@ let of_list l =
     | [] ->
        Lwt.fail Source_terminated
     | h :: t ->
-       Lwt_log.info_f "Handling %d in list" h >>
-         Lwt.return (h, t) in
+       Lwt.return (h, t) in
   create_pull f l
 
 let clone t = t
