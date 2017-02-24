@@ -1,5 +1,3 @@
-open Lwt.Infix
-
 exception Source_terminated
 
 type 'a node = N of ('a * 'a node Lwt.t)
