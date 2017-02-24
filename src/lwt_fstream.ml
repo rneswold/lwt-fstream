@@ -43,6 +43,13 @@ let next t =
   let%lwt N v = t in
   Lwt.return v
 
+let rec flush t =
+  match Lwt.state t with
+  | Lwt.Return (N (_, t)) ->
+     flush t
+  | Lwt.Sleep | Lwt.Fail _ ->
+     t
+
 let peek t =
   match Lwt.state t with
   | Lwt.Return (N (v, _)) ->

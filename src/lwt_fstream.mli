@@ -41,6 +41,8 @@ val next : 'a t -> ('a * 'a t) Lwt.t
     exn] if the stream is closed. *)
 val peek : 'a t -> 'a option Lwt.t
 
+val flush : 'a t -> 'a t
+
 (** [iter f s] passes each element of the stream [s] to the function
     [f] until it reaches the end of the stream. If [f] raises an
     exception, this function fails with the same. [f] should be a
