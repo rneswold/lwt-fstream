@@ -128,9 +128,7 @@ let append a b =
   in
   tAppend a
 
-let combine a b =
-  let rec tCombine tA tB =
-    let%lwt vA, tNextA = next tA
-    and vB, tNextB = next tB in
-    Lwt.return @@ N ((vA, vB), tCombine tNextA tNextB) in
-  tCombine a b
+let rec combine tA tB =
+  let%lwt vA, tNextA = next tA
+  and vB, tNextB = next tB in
+  Lwt.return @@ Stream ((vA, vB), combine tNextA tNextB)
