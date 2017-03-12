@@ -6,18 +6,27 @@ exception Source_terminated
 (** A functional stream. *)
 type 'a t
 
+type 'a source
+
 (** {2 Construction} *)
 
 (** [create_push ()] returns a stream and a function which pushes
     values onto the stream.  When the push function is garbage
     collected, the stream will terminate with [Source_terminated]. *)
-val create_push : unit -> 'a t * ('a -> unit)
+val create_push : unit -> 'a source * ('a -> unit)
 
-val create_pull : ('a -> ('b * 'a) Lwt.t) -> 'a -> 'b t
+(** [create_pull f i] creates a consumer driven stream. NOTE: This
+    functionality is under construction. Consumer-driven implies
+    resources are lazily consumed, but this function doesn't meet that
+    requirement. Hopefully future versions of this library will
+    improve the situation. *)
+val create_pull : ('a -> ('b * 'a) Lwt.t) -> 'a -> 'b source
 
 (** [of_list l] creates a stream containing the contents of the list
     [l]. NOTE: There is no guarantee the list is lazily read. *)
 val of_list : 'a list -> 'a t
+
+val snapshot : 'a source -> 'a t
 
 (** [clone s] returns a stream which will return the same content as
     the original. Each thread should read from its own copy of the
