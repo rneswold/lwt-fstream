@@ -11,8 +11,15 @@ let push ref_waker v =
     ref_waker := new_waker
   end
 
+(* This is the finalizer for the [push] function. If the [push]
+   function goes out of scope, no more items can be pushed on the
+   stream. Rather than have all stream clients forever block, the
+   stream is terminared with a [Source_terminated] exception. *)
+
 let final rw =
   Lwt_gc.finalise Lwt.(fun _ -> wrap2 wakeup_exn !rw Source_terminated)
+
+(* Creates a push-driven stream. *)
 
 let create_push () =
   let node, awakener = Lwt.wait () in
