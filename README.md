@@ -2,6 +2,8 @@
 
 An alternate stream library for LWT which uses a functional API.
 
+
+
 ## Build
 
     opam install lwt-fstream
@@ -12,6 +14,12 @@ or:
     opam install lwt-fstream
 
 ## Use
+
+The following example stuffs a stream with three integers and then
+iterates over the list, printing out each number. Since this isn't a
+long-running program, the push function `p` won't get
+reclaimed. `Gc.full_major()` is called to garbage collect the function
+so that the stream is closed.
 
 ```
 open Lwt
