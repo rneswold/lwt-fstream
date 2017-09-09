@@ -38,29 +38,7 @@ let create_push () =
   let p = push rt rw in
   ( final rw p; (Ref rt, p) )
 
-(* Creates a pull-driven stream. *)
-
-let create_pull f i =
-  let node, awakener = Lwt.wait () in
-  let rw = ref awakener
-  and rt = ref node in
-  let rec loop v =
-    let%lwt (v, n) = f v in
-    Lwt.return @@ Stream (v, loop n)
-  in
-  Ref rt
-
 let snapshot (Ref rt) = !rt
-
-(* Creates a stream containing the contents of a list. *)
-
-let of_list l =
-  let f = function
-    | [] ->
-       Lwt.fail Source_terminated
-    | h :: t ->
-       Lwt.return (h, t) in
-  create_pull f l |> snapshot
 
 (* When cloning a stream, if it's the initial, [Ref] form, return the
    underlying stream. Otherwise return the passed stream. *)

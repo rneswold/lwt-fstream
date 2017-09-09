@@ -15,17 +15,9 @@ type 'a source
     collected, the stream will terminate with [Source_terminated]. *)
 val create_push : unit -> 'a source * ('a -> unit)
 
-(** [create_pull f i] creates a consumer driven stream. NOTE: This
-    functionality is under construction. Consumer-driven implies
-    resources are lazily consumed, but this function doesn't meet that
-    requirement. Hopefully future versions of this library will
-    improve the situation. *)
-val create_pull : ('a -> ('b * 'a) Lwt.t) -> 'a -> 'b source
-
-(** [of_list l] creates a stream containing the contents of the list
-    [l]. NOTE: There is no guarantee the list is lazily read. *)
-val of_list : 'a list -> 'a t
-
+(** [snapshot src] returns the end of the current stream (so that a
+    call to [next] will block.) It is an efficient form of [clone s |>
+    flush]. *)
 val snapshot : 'a source -> 'a t
 
 (** [clone s] returns a stream which will return the same content as
