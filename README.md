@@ -22,14 +22,14 @@ let get_stream () =
     p 2;
     s
   end
-   
+
 let main () =
-  let s = get_stream () in
+  let s = get_stream () |> Lwt_fstream.snapshot in
   begin
     Gc.full_major ();
-    Lwt_fstream.iter_s (Lwt_log.info_f "Pulled %d") s
+    Lwt_fstream.iter (Lwt_log.info_f "Pulled %d") s
   end
-   
+
 let () =
   Lwt_main.run (main ())
 ```
