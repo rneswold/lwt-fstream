@@ -1,4 +1,5 @@
-(** This module implements a functional stream library. *)
+(** This module implements a functional, push-driven stream
+    library for the LWT library. *)
 
 (** Indicates a stream's source has ended. *)
 exception Source_terminated
@@ -6,12 +7,14 @@ exception Source_terminated
 (** A functional stream. *)
 type 'a t
 
+(** A type which tracks the end of the underlying stream. Use
+    [snapshot] to obtain a usable stream. *)
 type 'a source
 
 (** {2 Construction} *)
 
-(** [create_push ()] returns a stream and a function which pushes
-    values onto the stream. When the push function is garbage
+(** [create_push ()] returns a stream source and a function which
+    pushes values onto the stream. When the push function is garbage
     collected, the stream will terminate with [Source_terminated]. *)
 val create_push : unit -> 'a source * ('a -> unit)
 
@@ -22,7 +25,9 @@ val snapshot : 'a source -> 'a t
 
 (** [clone s] returns a stream which will return the same content as
     the original. Each thread should read from its own copy of the
-    stream. *)
+    stream. This function was added for completeness, but is of little
+    usefulness since new consumers of a stream should [snapshot] the
+    source. *)
 val clone : 'a t -> 'a t
 
 (** {2 Consuming}

@@ -1,10 +1,12 @@
 exception Source_terminated
 
-(* A stream, ['a t], is a promise to return an ['a node]. There are
-   two node types, [Ref] and [Stream]. [Ref] is returned only when the
-   stream is created. It contains a reference to the latest node in
-   the stream. All streams returned by [next] will be the functional
-   form, [Stream]. *)
+(* A stream, ['a t], is a promise to return an ['a node] which,
+   itself, holds the value of the current and a promise to return the
+   next node.
+
+   A source, ['a source], is a global reference to the stream. It
+   needs to be converted to a stream (using [snapshot]) before it can
+   be used. *)
 
 type 'a source = Ref of 'a t ref
 and 'a node = Stream of ('a * 'a t)
