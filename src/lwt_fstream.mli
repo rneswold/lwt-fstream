@@ -11,7 +11,7 @@ type 'a source
 (** {2 Construction} *)
 
 (** [create_push ()] returns a stream and a function which pushes
-    values onto the stream.  When the push function is garbage
+    values onto the stream. When the push function is garbage
     collected, the stream will terminate with [Source_terminated]. *)
 val create_push : unit -> 'a source * ('a -> unit)
 
@@ -35,7 +35,7 @@ val clone : 'a t -> 'a t
 
 (** {2 Consuming}
 
-    This seciton contains functions that consume content of a
+    This seciton contains functions that process content of a
     stream. *)
 
 (** [is_empty s] return [true] if the stream has no immediate content
@@ -47,7 +47,7 @@ val is_empty : 'a t -> bool
 (** [next s] returns data associated with the stream (blocking, if no
     data is available) along with a new stream to collect the next
     data. If the stream is closed, this function will [fail] with the
-    exception that closed it. *)
+    exception that terminated it. *)
 val next : 'a t -> ('a * 'a t) Lwt.t
 
 (** [peek s] returns [Some v] if there's data in the stream, [None] if
