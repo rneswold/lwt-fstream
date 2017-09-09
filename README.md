@@ -6,6 +6,8 @@ An alternate stream library for LWT which uses a functional API.
 
 ## Build
 
+*NOTE* : I haven't yet submitted this to the OPAM repository. Right now, simply pin it from my GITHUB repo until I fix this.
+
     opam install lwt-fstream
 
 or:
