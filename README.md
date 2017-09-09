@@ -14,8 +14,11 @@ or:
 ## Use
 
 ```
+open Lwt
+
 let get_stream () =
   let s, p = Lwt_fstream.create_push () in
+  let s = Lwt_fstream.snapshot s in
   begin
     p 0;
     p 1;
@@ -24,14 +27,15 @@ let get_stream () =
   end
 
 let main () =
-  let s = get_stream () |> Lwt_fstream.snapshot in
+  let s = get_stream () in
   begin
     Gc.full_major ();
-    Lwt_fstream.iter (Lwt_log.info_f "Pulled %d") s
+    Lwt_fstream.iter (Lwt_log.info_f "Pulled %d") s >>=
+      Lwt_io.flush_all
   end
 
 let () =
-  Lwt_main.run (main ())
+  Lwt_main.run (main () >> Lwt_log.info "Done.")
 ```
 
 ```
