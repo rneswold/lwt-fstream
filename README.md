@@ -35,7 +35,7 @@ let () =
 ```
 
 ```
-ocamlfind ocamlopt -package lwt.fstream,lwt.ppx -linkpkg -o a.out example.ml
+ocamlfind ocamlopt -package lwt.unix,lwt.ppx,lwt-fstream -linkpkg -o a.out example.ml
 ```
 
 ```
